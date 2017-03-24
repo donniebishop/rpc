@@ -25,7 +25,11 @@ fn main() {
 
     // Match subcommands with arguments
     match args.subcommand() {
+        // Playback Controls
         ("volume", Some(args)) => set_volume(&mut client, args.value_of("v")),
+
+        // State Changers
+        ("single", Some(args)) => single(&mut client, args.value_of("s")), 
         _ => {}
     }
 
@@ -43,7 +47,6 @@ fn main() {
         Some("consume") => consume(&mut client),
         Some("random")  => random(&mut client),
         Some("repeat")  => repeat(&mut client),
-        Some("single")  => single(&mut client),
 
         // Playlist Functions
         Some("clear")     => client.clear().unwrap(),

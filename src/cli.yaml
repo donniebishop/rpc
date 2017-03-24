@@ -61,7 +61,13 @@ subcommands:
         about: Shuffle playlist order
 
     - single:
-        about: Toggle single mode if state (on|off) is not specified
+        about: Set single playback state
+        args:
+            - s:
+                help: Turn mode on or off. Leave blank to toggle single mode
+                takes_value: true
+                value_name: on|off
+                required: false
 
     - status:
         about: Print current mpd status

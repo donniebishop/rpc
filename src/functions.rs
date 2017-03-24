@@ -26,15 +26,12 @@ fn get_current(c: &mut Client) -> (String, String) {
 // Playback Controls
 //------------------
 
-pub fn set_volume(c: &mut Client, v: Option<&str>) {
-    match v {
-        Some(num) => {
-            let vol = isize::from_str(num).unwrap();
-            if 0 < vol && vol <= 100 {
-                c.volume(vol as i8).unwrap()
-            }
+pub fn set_volume(c: &mut Client, volume: Option<&str>) {
+    if let Some(num) = volume {
+        let vol = isize::from_str(num).unwrap();
+        if 0 < vol && vol <= 100 {
+            c.volume(vol as i8).unwrap()
         }
-        None => {}
     }
 }
 
@@ -68,15 +65,15 @@ pub fn repeat(c: &mut Client) {
     c.repeat(!s.repeat).unwrap()
 }
 
-pub fn single(c: &mut Client) {
+pub fn single(c: &mut Client, onoff: Option<&str>) {
     let s = get_status(c).unwrap();
-    c.single(!s.single).unwrap()
 
-    //if b {
-        //c.single(true).unwrap() 
-    //} else {
-        //c.single(false).unwrap()
-    //}
+    match onoff {
+        Some("on")   => c.single(true).unwrap(),
+        Some("off")  => c.single(false).unwrap(),
+        Some(_)      => {},
+        None         => c.single(!s.single).unwrap()
+    }
 }
 
 //-------------------
