@@ -2,17 +2,32 @@
 
 // External
 use mpd::client::Client;
+use mpd::error;
 use mpd::status::Status;
 use mpd::status::State::*;
 
 // STD
 use std::ops::Rem;
 
+fn get_status(c: &mut Client) -> Result<Status, error::Error> {
+    c.status()
+}
+
+fn get_current(c: &mut Client) -> (String, String) {
+    let song = c.currentsong().unwrap().unwrap();
+    let title = song.title.unwrap().clone();
+    let artist = song.tags.get("Artist").unwrap().clone();
+
+    (artist, title)
+}
+
 //------------------
 // Playback Controls
 //------------------
 
-pub fn toggle(c: &mut Client, s: &Status) {
+pub fn toggle(c: &mut Client) {
+    let s = get_status(c).unwrap();
+
     // Invert current pause status
     match s.state {
        Pause => c.pause(false).unwrap(),
@@ -25,19 +40,23 @@ pub fn toggle(c: &mut Client, s: &Status) {
 // State Changers
 //---------------
 
-pub fn consume(c: &mut Client, s: &Status) {
+pub fn consume(c: &mut Client) {
+    let s = get_status(c).unwrap();
     c.consume(!s.consume).unwrap()
 }
 
-pub fn random(c: &mut Client, s: &Status) {
+pub fn random(c: &mut Client) {
+    let s = get_status(c).unwrap();
     c.random(!s.random).unwrap()
 }
 
-pub fn repeat(c: &mut Client, s: &Status) {
+pub fn repeat(c: &mut Client) {
+    let s = get_status(c).unwrap();
     c.repeat(!s.repeat).unwrap()
 }
 
-pub fn single(c: &mut Client, s: &Status) {
+pub fn single(c: &mut Client) {
+    let s = get_status(c).unwrap();
     c.single(!s.single).unwrap()
 
     //if b {
@@ -63,14 +82,17 @@ pub fn playlists(c: &mut Client) {
 // Miscellaneous Functions
 //------------------------
 
+pub fn current(c: &mut Client) {
+    let (artist, title) = get_current(c);
+    println!("{} - {}", artist, title)
+}
+
 pub fn mpd_status(c: &mut Client) {
     // Get current Status
     let s = c.status().unwrap();
 
     // First Line
-    let song = c.currentsong().unwrap().unwrap();
-    let title = song.title.unwrap();
-    let artist = song.tags.get("Artist").unwrap();
+    let (artist, title) = get_current(c);
 
     // Second Line
     let state = match s.state {

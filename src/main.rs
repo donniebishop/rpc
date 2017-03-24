@@ -23,8 +23,6 @@ fn main() {
     let mut client = Client::connect(&mpd)
                             .expect("Unable to open connection to MPD");
 
-    let status = client.status().unwrap();
-
     match args.subcommand_name() {
         // Playback Controls
         Some("next")   => client.next().unwrap(),
@@ -32,13 +30,13 @@ fn main() {
         Some("play")   => client.play().unwrap(),
         Some("prev")   => client.prev().unwrap(),
         Some("stop")   => client.stop().unwrap(),
-        Some("toggle") => toggle(&mut client, &status),
+        Some("toggle") => toggle(&mut client),
 
         // State Changers
-        Some("consume") => consume(&mut client, &status),
-        Some("random")  => random(&mut client, &status),
-        Some("repeat")  => repeat(&mut client, &status),
-        Some("single")  => single(&mut client, &status),
+        Some("consume") => consume(&mut client),
+        Some("random")  => random(&mut client),
+        Some("repeat")  => repeat(&mut client),
+        Some("single")  => single(&mut client),
 
         // Playlist Functions
         Some("clear")     => client.clear().unwrap(),
@@ -46,13 +44,18 @@ fn main() {
         Some("shuffle")   => client.shuffle(..).unwrap(),
 
         // Misc
+        Some("current") => current(&mut client),
         Some("status")  => {}, // Will still call mpd_status below
         Some("version") => version(&mut client),
 
         _ => {},
     };
 
-    if !args.is_present("quiet") {
+    // Determine whether to print status or not
+    let curr_present = args.subcommand_matches("current").is_some();
+    let quiet_present = args.is_present("quiet");
+
+    if curr_present || quiet_present {} else {
         mpd_status(&mut client)
     }
 }

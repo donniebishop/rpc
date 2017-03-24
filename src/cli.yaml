@@ -32,6 +32,9 @@ subcommands:
 
     - consume:
         about: Toggle consume mode
+
+    - current:
+        about: Print currently playing song and artist
     
     - next:
         about: Plays next track

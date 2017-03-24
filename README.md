@@ -19,6 +19,7 @@ OPTIONS:
 SUBCOMMANDS:
     clear        Empties playlist
     consume      Toggle consume mode
+    current      Print currently playing song and artist
     help         Prints this message or the help of the given subcommand(s)
     next         Plays next track
     pause        Pauses playing
