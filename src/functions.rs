@@ -14,6 +14,10 @@ pub fn toggle(mut c: Client, s: Status) {
     }
 }
 
+//---------------
+// State Changers
+//---------------
+
 pub fn consume(mut c: Client, s: Status) {
     c.consume(!s.consume).unwrap()
 }
@@ -34,6 +38,18 @@ pub fn single(mut c: Client, s: Status) {
     //} else {
         //c.single(false).unwrap()
     //}
+}
+
+//-------------------
+// Playlist Functions
+//-------------------
+
+pub fn playlists(mut c: Client) {
+    let ps = c.playlists().unwrap();
+
+    for p in ps {
+        println!("{}", p.name)
+    }
 }
 
 pub fn version(c: Client) {

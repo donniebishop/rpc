@@ -26,6 +26,7 @@ fn main() {
     let status = client.status().unwrap();
 
     match args.subcommand_name() {
+        // Playback Controls
         Some("next")   => client.next().unwrap(),
         Some("pause")  => client.pause(true).unwrap(),
         Some("play")   => client.play().unwrap(),
@@ -40,11 +41,12 @@ fn main() {
         Some("single")  => single(client, status),
 
         // Playlist Functions
-        Some("shuffle") => client.shuffle(..).unwrap(),
+        Some("clear")     => client.clear().unwrap(),
+        Some("playlists") => playlists(client),
+        Some("shuffle")   => client.shuffle(..).unwrap(),
 
         Some("version") => version(client),
 
-        // For commands not accounted for
         _ => {},
     }
 }

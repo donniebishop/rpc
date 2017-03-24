@@ -3,7 +3,32 @@ version: "0.0.1"
 author: Donnie Bishop <donnie.a.bishop@gmail.com>
 about: Rust implementation of mpc, to control an MPD server
 
+args:
+
+    - host:
+        short: h
+        long: host
+        takes_value: true
+        value_name: HOST
+        help: The host to connect to
+
+    - port:
+        short: p
+        long: port
+        takes_value: true
+        value_name: PORT
+        help: The port to connect to
+
+    - quiet:
+        short: q
+        long: quiet
+        takes_value: false
+        help: Silences output of mpd status on completion of commands
+
 subcommands:
+
+    - clear:
+        about: Empties playlist
 
     - consume:
         about: Toggle consume mode
@@ -25,6 +50,9 @@ subcommands:
 
     - repeat:
         about: Toggle repeat mode
+
+    - playlists:
+        about: List all available playlists
 
     - shuffle:
         about: Shuffle playlist order

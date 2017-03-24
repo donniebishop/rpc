@@ -5,13 +5,19 @@ rpc
 
 ```
 USAGE:
-    rpc [SUBCOMMAND]
+    rpc [FLAGS] [OPTIONS] [SUBCOMMAND]
 
 FLAGS:
-    -h, --help       Prints help information
+        --help       Prints help information
+    -q, --quiet      Silences output of mpd status on completion of commands
     -V, --version    Prints version information
 
+OPTIONS:
+    -h, --host <HOST>    The host to connect to
+    -p, --port <PORT>    The port to connect to
+
 SUBCOMMANDS:
+    clear      Empties playlist
     consume    Toggle consume mode
     help       Prints this message or the help of the given subcommand(s)
     next       Plays next track
@@ -24,6 +30,7 @@ SUBCOMMANDS:
     single     Toggle single mode if state (on|off) is not specified
     stop       Stops playing
     toggle     Toggles between play and pause
+    version    Reports the version of MPD
 ```
 
 Deep influence for rpc is taken from [`mpc`](https://github.com/MaxKellermann/mpc).
