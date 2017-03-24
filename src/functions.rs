@@ -5,6 +5,10 @@ use mpd::client::Client;
 use mpd::status::Status;
 use mpd::status::State::*;
 
+//------------------
+// Playback Controls
+//------------------
+
 pub fn toggle(mut c: Client, s: Status) {
     // Invert current pause status
     match s.state {
