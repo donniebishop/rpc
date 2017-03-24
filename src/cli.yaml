@@ -74,3 +74,12 @@ subcommands:
 
     - version:
         about: Reports the version of MPD
+
+    - volume:
+        about: Sets output volume of MPD
+        args:
+            - v:
+                help: Volume percentage. Value between 0 and 100 
+                takes_value: true
+                value_name: VOLUME
+                required: true

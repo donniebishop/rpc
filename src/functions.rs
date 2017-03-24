@@ -8,6 +8,7 @@ use mpd::status::State::*;
 
 // STD
 use std::ops::Rem;
+use std::str::FromStr;
 
 fn get_status(c: &mut Client) -> Result<Status, error::Error> {
     c.status()
@@ -24,6 +25,18 @@ fn get_current(c: &mut Client) -> (String, String) {
 //------------------
 // Playback Controls
 //------------------
+
+pub fn set_volume(c: &mut Client, v: Option<&str>) {
+    match v {
+        Some(num) => {
+            let vol = isize::from_str(num).unwrap();
+            if 0 < vol && vol <= 100 {
+                c.volume(vol as i8).unwrap()
+            }
+        }
+        None => {}
+    }
+}
 
 pub fn toggle(c: &mut Client) {
     let s = get_status(c).unwrap();

@@ -34,6 +34,7 @@ SUBCOMMANDS:
     stop         Stops playing
     toggle       Toggles between play and pause
     version      Reports the version of MPD
+    volume       Sets output volume of MPD
 ```
 
 Deep influence for rpc is taken from [`mpc`](https://github.com/MaxKellermann/mpc).

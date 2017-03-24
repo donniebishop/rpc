@@ -23,6 +23,13 @@ fn main() {
     let mut client = Client::connect(&mpd)
                             .expect("Unable to open connection to MPD");
 
+    // Match subcommands with arguments
+    match args.subcommand() {
+        ("volume", Some(args)) => set_volume(&mut client, args.value_of("v")),
+        _ => {}
+    }
+
+    // Match subcommands with no arguments
     match args.subcommand_name() {
         // Playback Controls
         Some("next")   => client.next().unwrap(),
