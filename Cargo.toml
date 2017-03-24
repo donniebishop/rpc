@@ -1,0 +1,8 @@
+[package]
+name = "rpc"
+version = "0.0.1"
+authors = ["Donnie Bishop <donnie.a.bishop@gmail.com>"]
+
+[dependencies]
+clap = { version = "2.22.0", features = ["yaml"] }
+mpd = "0.0.11"

@@ -1,0 +1,42 @@
+name: rpc
+version: "0.0.1"
+author: Donnie Bishop <donnie.a.bishop@gmail.com>
+about: Rust implementation of mpc, to control an MPD server
+
+subcommands:
+
+    - consume:
+        about: Toggle consume mode
+    
+    - next:
+        about: Plays next track
+
+    - pause:
+        about: Pauses playing
+    
+    - play:
+        about: Starts playing
+
+    - prev:
+        about: Plays previous track
+
+    - random:
+        about: Toggle randomized track playback
+
+    - repeat:
+        about: Toggle repeat mode
+
+    - shuffle:
+        about: Shuffle playlist order
+
+    - single:
+        about: Toggle single mode if state (on|off) is not specified
+
+    - stop:
+        about: Stops playing
+
+    - toggle:
+        about: Toggles between play and pause
+
+    - version:
+        about: Reports the version of MPD
