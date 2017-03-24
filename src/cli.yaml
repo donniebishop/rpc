@@ -60,6 +60,9 @@ subcommands:
     - single:
         about: Toggle single mode if state (on|off) is not specified
 
+    - status:
+        about: Print current mpd status
+
     - stop:
         about: Stops playing
 

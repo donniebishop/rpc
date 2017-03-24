@@ -29,6 +29,7 @@ SUBCOMMANDS:
     repeat       Toggle repeat mode
     shuffle      Shuffle playlist order
     single       Toggle single mode if state (on|off) is not specified
+    status       Print current mpd status
     stop         Stops playing
     toggle       Toggles between play and pause
     version      Reports the version of MPD

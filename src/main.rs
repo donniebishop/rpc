@@ -32,21 +32,27 @@ fn main() {
         Some("play")   => client.play().unwrap(),
         Some("prev")   => client.prev().unwrap(),
         Some("stop")   => client.stop().unwrap(),
-        Some("toggle") => toggle(client, status),
+        Some("toggle") => toggle(&mut client, &status),
 
         // State Changers
-        Some("consume") => consume(client, status),
-        Some("random")  => random(client, status),
-        Some("repeat")  => repeat(client, status),
-        Some("single")  => single(client, status),
+        Some("consume") => consume(&mut client, &status),
+        Some("random")  => random(&mut client, &status),
+        Some("repeat")  => repeat(&mut client, &status),
+        Some("single")  => single(&mut client, &status),
 
         // Playlist Functions
         Some("clear")     => client.clear().unwrap(),
-        Some("playlists") => playlists(client),
+        Some("playlists") => playlists(&mut client),
         Some("shuffle")   => client.shuffle(..).unwrap(),
 
-        Some("version") => version(client),
+        // Misc
+        Some("status")  => {}, // Will still call mpd_status below
+        Some("version") => version(&mut client),
 
         _ => {},
+    };
+
+    if !args.is_present("quiet") {
+        mpd_status(&mut client)
     }
 }
