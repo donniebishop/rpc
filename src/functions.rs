@@ -7,7 +7,6 @@ use mpd::status::Status;
 use mpd::status::State::*;
 
 // STD
-use std::ops::Rem;
 use std::str::FromStr;
 
 fn get_status(c: &mut Client) -> Result<Status, error::Error> {
@@ -119,20 +118,10 @@ pub fn mpd_status(c: &mut Client) {
     // Wow. This was a nightmare to do. I'm so sorry
     let t = s.time.unwrap();
     let (e, d) = (t.0, t.1);
-    let elapsed = if e.num_seconds().rem(60) < 10 {
-        format!("{}:0{}", e.num_minutes(), 
-                          (e.num_seconds() - (e.num_minutes() * 60)))
-    } else {
-        format!("{}:{}", e.num_minutes(), 
-                          (e.num_seconds() - (e.num_minutes() * 60)))
-    };
-    let duration = if d.num_seconds().rem(60) < 10 {
-        format!("{}:0{}", d.num_minutes(), 
-                          (d.num_seconds() - (d.num_minutes() * 60)))
-    } else {
-        format!("{}:{}", d.num_minutes(), 
-                          (d.num_seconds() - (d.num_minutes() * 60)))
-    };
+    let elapsed = format!("{}:{:02}", e.num_minutes(), 
+                         (e.num_seconds() - (e.num_minutes() * 60)));
+    let duration = format!("{}:{:02}", d.num_minutes(), 
+                          (d.num_seconds() - (d.num_minutes() * 60)));
 
     // Third Line
     let onoff = |b| if b { "on" } else { "off" };
