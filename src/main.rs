@@ -63,9 +63,12 @@ fn main() {
 
     // Determine whether to print status or not
     let curr_present = args.subcommand_matches("current").is_some();
+    let vers_present = args.subcommand_matches("version").is_some();
     let quiet_present = args.is_present("quiet");
 
-    if curr_present || quiet_present {} else {
+    if curr_present
+        || vers_present
+        || quiet_present { } else {
         mpd_status(&mut client)
     }
 }

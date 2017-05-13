@@ -28,7 +28,8 @@ fn get_current(c: &mut Client) -> (String, String) {
 
 pub fn set_volume(c: &mut Client, volume: Option<&str>) {
     if let Some(num) = volume {
-        let vol = isize::from_str(num).unwrap();
+        let current_vol = c.status().unwrap().volume as isize;
+        let vol = isize::from_str(num).unwrap_or(current_vol);
         if vol < 0 {
             c.volume(0_i8).unwrap()
         } else if 0 < vol && vol <= 100 {
